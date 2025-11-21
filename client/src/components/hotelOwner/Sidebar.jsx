@@ -13,7 +13,7 @@ const Sidebar = () => {
     ];
 
     return (
-        <div className="md:w-64 w-16 border-r h-full text-base border-gray-300 pt-4 flex flex-col transition-all duration-300">
+        <div className="md:w-64 w-16 border-r min-h-screen sticky top-0 text-base border-gray-300 pt-4 flex flex-col transition-all duration-300 bg-white">
             {sidebarLinks.map((item, index) => (
                 <NavLink to={item.path} key={index} end='/owner' className={({ isActive }) => `flex items-center py-3 px-4 md:px-8 gap-3 ${isActive ? "border-r-4 md:border-r-[6px] bg-blue-600/10 border-blue-600 text-blue-600" : "hover:bg-gray-100/90 border-white text-gray-700"}`}>
                     <img className="min-h-6 min-w-6" src={item.icon} alt={item.name} />
