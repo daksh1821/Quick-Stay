@@ -16,22 +16,18 @@ import Footer from './components/Footer'
 import MyBookings from './pages/MyBookings'
 import Loader from './components/Loader'
 import AdminRegister from './pages/AdminRegister'
-import Login from './pages/Login'
-import SignUpPage from './pages/SignUp'
 
 const App = () => {
 
   // Check Is Route Starts With Owner
-  const location = useLocation();
-  const isOwnerPath = location.pathname.includes("owner");
-  const isAuthPath = location.pathname === "/login" || location.pathname === "/signup";
+  const isOwnerPath = useLocation().pathname.includes("owner");
 
   const { showHotelReg } = useAppContext();
 
   return (
     <div className='font-inter'>
       <Toaster />
-      {!isOwnerPath && !isAuthPath && <Navbar />}
+      {!isOwnerPath && <Navbar />}
       {showHotelReg && <HotelReg />}
       <div className='min-h-[70vh]'>
       <Routes>
@@ -40,8 +36,6 @@ const App = () => {
         <Route path='/rooms/:id' element={<RoomDetails />} />
         <Route path='my-bookings' element={<MyBookings />} />
         <Route path='/register-admin' element={<AdminRegister />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<SignUpPage />} />
         < Route path="/loader/:nextUrl" element={<Loader />} />
         <Route path="/owner" element={<Layout />}>
           <Route index element={<Dashboard />} />
@@ -51,7 +45,7 @@ const App = () => {
         </Route>
       </Routes>
       </div>
-      {!isAuthPath && <Footer />}
+      <Footer />
     </div>
   )
 }
