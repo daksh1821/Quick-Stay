@@ -16,6 +16,7 @@ import Footer from './components/Footer'
 import MyBookings from './pages/MyBookings'
 import Loader from './components/Loader'
 import AdminRegister from './pages/AdminRegister'
+import About from './pages/About'
 
 const App = () => {
 
@@ -32,6 +33,7 @@ const App = () => {
       <div className='min-h-[70vh]'>
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
         <Route path='/rooms' element={<AllRooms />} />
         <Route path='/rooms/:id' element={<RoomDetails />} />
         <Route path='my-bookings' element={<MyBookings />} />
