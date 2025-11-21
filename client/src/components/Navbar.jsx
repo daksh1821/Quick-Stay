@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { useClerk, UserButton } from "@clerk/clerk-react";
+import { UserButton } from "@clerk/clerk-react";
 import { useAppContext } from "../context/AppContext";
 
 const BookIcon = () => (
@@ -23,7 +23,6 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
 
-    const { openSignIn } = useClerk()
     const { user, isOwner, navigate } = useAppContext()
 
     useEffect(() => {
@@ -81,7 +80,7 @@ const Navbar = () => {
                         </UserButton.MenuItems>
                     </UserButton>
                 ) : (
-                    <button onClick={openSignIn} className="bg-black text-white px-8 py-2.5 rounded-full ml-4 transition-all duration-500 cursor-pointer">
+                    <button onClick={() => navigate('/login')} className="bg-black text-white px-8 py-2.5 rounded-full ml-4 transition-all duration-500 cursor-pointer">
                         Login
                     </button>
                 )}
@@ -123,7 +122,7 @@ const Navbar = () => {
                 )}
 
                 {!user && (
-                    <button onClick={openSignIn} className="bg-black text-white px-8 py-2.5 rounded-full ml-4 transition-all duration-500" >
+                    <button onClick={() => { navigate('/login'); setIsMenuOpen(false); }} className="bg-black text-white px-8 py-2.5 rounded-full ml-4 transition-all duration-500" >
                         Login
                     </button>
                 )}
