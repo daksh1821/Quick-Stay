@@ -9,6 +9,7 @@ const Sidebar = () => {
         { name: "My Hotels", path: "/owner/my-hotels", icon: assets.listIcon },
         { name: "Add Room", path: "/owner/add-room", icon: assets.addIcon },
         { name: "List Rooms", path: "/owner/list-room", icon: assets.listIcon },
+        { name: "Feedback", path: "/owner/feedback", icon: assets.starIconFilled },
     ];
 
     return (

@@ -7,6 +7,7 @@ import Dashboard from './pages/hotelOwner/Dashboard'
 import AddRoom from './pages/hotelOwner/AddRoom'
 import ListRoom from './pages/hotelOwner/ListRoom'
 import MyHotels from './pages/hotelOwner/MyHotels'
+import FeedbackManagement from './pages/hotelOwner/FeedbackManagement'
 import HotelReg from './components/HotelReg'
 import { useAppContext } from './context/AppContext'
 import { Toaster } from 'react-hot-toast'
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="my-hotels" element={<MyHotels />} />
           <Route path="add-room" element={<AddRoom />} />
           <Route path="list-room" element={<ListRoom />} />
+          <Route path="feedback" element={<FeedbackManagement />} />
         </Route>
       </Routes>
       </div>
