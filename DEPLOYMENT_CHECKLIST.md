@@ -63,11 +63,14 @@ NODE_ENV=production
 
 #### Frontend Service (quickstay-frontend):
 
+**IMPORTANT:** First wait for the backend to deploy, then copy its URL.
+
 ```
+VITE_BACKEND_URL=https://quickstay-backend.onrender.com
 VITE_CLERK_PUBLISHABLE_KEY=<your_clerk_publishable_key>
 ```
 
-> **Note:** `VITE_BACKEND_URL` will be automatically set from the backend service URL.
+> **Note:** Replace `quickstay-backend.onrender.com` with your actual backend URL.
 
 ### 4. Wait for Deployment
 

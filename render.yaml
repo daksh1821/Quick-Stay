@@ -38,21 +38,16 @@ services:
         value: production
 
   # Frontend Static Site
-  - type: web
+  - type: static
     name: quickstay-frontend
-    runtime: node
     region: oregon
     plan: free
     buildCommand: cd client && npm install && npm run build
     staticPublishPath: ./client/dist
+    pullRequestPreviewsEnabled: true
     envVars:
       - key: VITE_CURRENCY
         value: $
-      - key: VITE_BACKEND_URL
-        fromService:
-          type: web
-          name: quickstay-backend
-          property: host
       - key: VITE_CLERK_PUBLISHABLE_KEY
         sync: false
     routes:

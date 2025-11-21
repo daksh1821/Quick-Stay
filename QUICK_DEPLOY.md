@@ -42,9 +42,14 @@ NODE_ENV=production
 ```
 
 **For Frontend (quickstay-frontend):**
+
+Wait for backend to deploy first, then add:
 ```
+VITE_BACKEND_URL=https://your-backend-url.onrender.com
 VITE_CLERK_PUBLISHABLE_KEY=<your_value>
 ```
+
+Replace `your-backend-url` with the actual backend URL from Render.
 
 ## 3. Update Clerk Webhook (2 minutes)
 

@@ -42,12 +42,15 @@ Go to the backend service → Environment → Add environment variables.
 
 #### For Frontend Service (quickstay-frontend):
 
-Go to the frontend service → Environment → Add environment variable.
+**IMPORTANT:** Wait for backend to fully deploy first!
 
-**Copy from your `client/.env` file:**
-- `VITE_CLERK_PUBLISHABLE_KEY`
+Go to the frontend service → Environment → Add environment variables:
 
-**Note:** `VITE_BACKEND_URL` will be automatically set from the backend service.
+**Manual setup required:**
+- `VITE_BACKEND_URL` = `https://your-backend-url.onrender.com` (copy from backend service URL)
+- `VITE_CLERK_PUBLISHABLE_KEY` = (copy from your `client/.env` file)
+
+After adding `VITE_BACKEND_URL`, trigger a manual redeploy of the frontend.
 
 ### Step 4: Wait for Deployment
 
