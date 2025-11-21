@@ -41,7 +41,7 @@ const Testimonial = () => {
             <Title title="What Our Guests Say" subTitle="Discover why discerning travelers consistently choose Final Destination for their exclusive and luxurious accommodations around the world." />
 
             <div className='flex flex-wrap justify-center gap-6 mt-12'>
-                {feedbacks.slice(0, 6).map((feedback, index) => (
+                {feedbacks.slice(0, 3).map((feedback, index) => (
                     <div key={feedback._id || feedback.id || index} className='bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow max-w-sm w-full'>
                         <div className='flex items-center gap-3'>
                             <img

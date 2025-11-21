@@ -40,8 +40,15 @@ const FeedbackManagement = () => {
             );
 
             if (data.success) {
+                // Update the state immediately with the approved feedback
+                setFeedbacks(prevFeedbacks =>
+                    prevFeedbacks.map(feedback =>
+                        feedback._id === feedbackId
+                            ? { ...feedback, isApproved: true }
+                            : feedback
+                    )
+                );
                 toast.success('Feedback approved successfully!');
-                fetchFeedback();
             } else {
                 toast.error(data.message);
             }
@@ -61,8 +68,11 @@ const FeedbackManagement = () => {
             });
 
             if (data.success) {
+                // Remove the feedback from state immediately
+                setFeedbacks(prevFeedbacks =>
+                    prevFeedbacks.filter(feedback => feedback._id !== feedbackId)
+                );
                 toast.success('Feedback deleted successfully!');
-                fetchFeedback();
             } else {
                 toast.error(data.message);
             }
