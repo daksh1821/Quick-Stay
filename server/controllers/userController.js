@@ -1,3 +1,4 @@
+import User from "../models/User.js";
 
 // Get User data using Token (JWT)
 // GET /api/user/
@@ -26,6 +27,21 @@ export const storeRecentSearchedCities = async (req, res) => {
     }
     await user.save();
     res.json({ success: true, message: "City added" });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+// Register User as Admin (Hotel Owner)
+// POST /api/user/register-as-admin
+export const registerAsAdmin = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    // Update user role to admin
+    await User.findByIdAndUpdate(userId, { role: "admin" });
+
+    res.json({ success: true, message: "Successfully registered as admin" });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }

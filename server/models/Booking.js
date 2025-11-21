@@ -21,6 +21,15 @@ const bookingSchema = new Schema(
       default: "Pay At Hotel",
     },
     isPaid: { type: Boolean, default: false },
+    paymentStatus: {
+      type: String,
+      enum: ["pending", "completed", "failed"],
+      default: "completed",
+    },
+    // Razorpay payment fields
+    razorpay_order_id: { type: String },
+    razorpay_payment_id: { type: String },
+    razorpay_signature: { type: String },
   },
   { timestamps: true }
 );

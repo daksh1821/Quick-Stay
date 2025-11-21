@@ -6,11 +6,19 @@ import { v2 as cloudinary } from "cloudinary";
 // POST /api/rooms
 export const createRoom = async (req, res) => {
   try {
-    const { roomType, pricePerNight, amenities } = req.body;
+    const { roomType, pricePerNight, amenities, hotelId } = req.body;
 
-    const hotel = await Hotel.findOne({ owner: req.auth.userId });
-
-    if (!hotel) return res.json({ success: false, message: "No Hotel found" });
+    // Use provided hotelId or find the first hotel owned by user
+    let hotel;
+    if (hotelId) {
+      hotel = await Hotel.findOne({ _id: hotelId, owner: req.user._id });
+      if (!hotel) {
+        return res.json({ success: false, message: "Hotel not found or you don't have permission." });
+      }
+    } else {
+      hotel = await Hotel.findOne({ owner: req.user._id });
+      if (!hotel) return res.json({ success: false, message: "No Hotel found. Please register a hotel first." });
+    }
 
     // upload images to cloudinary
     const uploadImages = req.files.map(async (file) => {
@@ -53,16 +61,24 @@ export const getRooms = async (req, res) => {
   }
 };
 
-// API to get all rooms for a specific hotel
+// API to get all rooms for all hotels owned by the admin
 // GET /api/rooms/owner
 export const getOwnerRooms = async (req, res) => {
   try {
-    const hotelData = await Hotel.findOne({ owner: req.auth.userId });
-    const rooms = await Room.find({ hotel: hotelData._id.toString() }).populate("hotel");
+    // Find all hotels owned by this admin
+    const hotels = await Hotel.find({ owner: req.user._id });
+    if (!hotels || hotels.length === 0) {
+      return res.json({ success: false, message: "No Hotel found. Please register a hotel first." });
+    }
+
+    // Get hotel IDs
+    const hotelIds = hotels.map(hotel => hotel._id);
+
+    // Find all rooms that belong to any of these hotels
+    const rooms = await Room.find({ hotel: { $in: hotelIds } }).populate("hotel");
     res.json({ success: true, rooms });
   } catch (error) {
     console.log(error);
-    
     res.json({ success: false, message: error.message });
   }
 };
