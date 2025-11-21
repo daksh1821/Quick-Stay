@@ -18,6 +18,7 @@ import MyBookings from './pages/MyBookings'
 import Loader from './components/Loader'
 import AdminRegister from './pages/AdminRegister'
 import About from './pages/About'
+import Experiences from './pages/Experiences'
 
 const App = () => {
 
@@ -35,6 +36,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
+        <Route path='/experiences' element={<Experiences />} />
         <Route path='/rooms' element={<AllRooms />} />
         <Route path='/rooms/:id' element={<RoomDetails />} />
         <Route path='my-bookings' element={<MyBookings />} />
