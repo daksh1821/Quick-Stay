@@ -38,8 +38,9 @@ services:
         value: production
 
   # Frontend Static Site
-  - type: static
+  - type: web
     name: quickstay-frontend
+    runtime: static
     region: oregon
     plan: free
     buildCommand: cd client && npm install && npm run build
