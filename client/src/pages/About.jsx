@@ -34,22 +34,10 @@ const About = () => {
 
     const team = [
         {
-            name: 'Sarah Johnson',
+            name: 'Khushi Pathak',
             role: 'CEO & Founder',
             image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400',
-            description: '15+ years in luxury hospitality'
-        },
-        {
-            name: 'Michael Chen',
-            role: 'Head of Operations',
-            image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400',
-            description: 'Expert in hotel partnerships'
-        },
-        {
-            name: 'Emily Davis',
-            role: 'Customer Experience Lead',
-            image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400',
-            description: 'Passionate about guest satisfaction'
+            description: 'Full Stack Developer'
         }
     ];
 
@@ -83,7 +71,7 @@ const About = () => {
                     </h2>
                     <div className='space-y-6 text-gray-700 leading-relaxed'>
                         <p className='text-lg'>
-                            Founded in 2020, Final Destination was born from a simple yet powerful vision:
+                            Founded in 2025, Final Destination was born from a simple yet powerful vision:
                             to make luxury travel accessible and effortless for discerning travelers worldwide.
                             We recognized that finding the perfect accommodation should be an exciting part of
                             the journey, not a stressful task.
@@ -143,25 +131,25 @@ const About = () => {
             {/* Team Section */}
             <div className='px-6 md:px-16 lg:px-24 xl:px-32 py-16 md:py-24'>
                 <h2 className='text-3xl md:text-4xl font-playfair font-bold text-center mb-4'>
-                    Meet Our Team
+                    Meet Our Founder
                 </h2>
                 <p className='text-center text-gray-600 mb-12 max-w-2xl mx-auto'>
-                    Passionate professionals dedicated to making your travel dreams a reality
+                    Passionate professional dedicated to making your travel dreams a reality
                 </p>
-                <div className='grid md:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto'>
+                <div className='flex justify-center'>
                     {team.map((member, index) => (
-                        <div key={index} className='text-center group'>
+                        <div key={index} className='text-center group max-w-md'>
                             <div className='relative mb-6 overflow-hidden rounded-2xl'>
                                 <img
                                     src={member.image}
                                     alt={member.name}
-                                    className='w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110'
+                                    className='w-full h-96 object-cover transition-transform duration-500 group-hover:scale-110'
                                 />
                                 <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
                             </div>
-                            <h3 className='text-xl font-bold mb-1'>{member.name}</h3>
+                            <h3 className='text-2xl font-bold mb-2'>{member.name}</h3>
                             <p className='text-blue-600 font-semibold mb-2'>{member.role}</p>
-                            <p className='text-gray-600 text-sm'>{member.description}</p>
+                            <p className='text-gray-600'>{member.description}</p>
                         </div>
                     ))}
                 </div>
