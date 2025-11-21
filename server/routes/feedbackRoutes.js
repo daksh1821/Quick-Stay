@@ -1,7 +1,6 @@
 import express from 'express';
 import { submitFeedback, getApprovedFeedback, getAllFeedback, approveFeedback, deleteFeedback } from '../controllers/feedbackController.js';
-import authMiddleware from '../middleware/authMiddleware.js';
-import adminMiddleware from '../middleware/adminMiddleware.js';
+import { protect, isAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -9,11 +8,11 @@ const router = express.Router();
 router.get('/approved', getApprovedFeedback);
 
 // Protected routes (user must be logged in)
-router.post('/submit', authMiddleware, submitFeedback);
+router.post('/submit', protect, submitFeedback);
 
 // Admin routes
-router.get('/all', authMiddleware, adminMiddleware, getAllFeedback);
-router.put('/approve/:feedbackId', authMiddleware, adminMiddleware, approveFeedback);
-router.delete('/:feedbackId', authMiddleware, adminMiddleware, deleteFeedback);
+router.get('/all', protect, isAdmin, getAllFeedback);
+router.put('/approve/:feedbackId', protect, isAdmin, approveFeedback);
+router.delete('/:feedbackId', protect, isAdmin, deleteFeedback);
 
 export default router;

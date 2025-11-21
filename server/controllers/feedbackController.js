@@ -1,21 +1,18 @@
 import Feedback from '../models/Feedback.js';
-import User from '../models/User.js';
 
 // Submit feedback
 const submitFeedback = async (req, res) => {
     try {
         const { rating, review, location } = req.body;
-        const userId = req.userId;
+        const user = req.user;
 
-        // Get user details
-        const user = await User.findOne({ _id: userId });
         if (!user) {
             return res.json({ success: false, message: 'User not found' });
         }
 
         // Create feedback
         const feedback = new Feedback({
-            user: userId,
+            user: user._id,
             userName: user.username,
             userEmail: user.email,
             userImage: user.image,
