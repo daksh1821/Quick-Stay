@@ -87,7 +87,7 @@ const Experiences = () => {
 
             {/* Stats Section */}
             <motion.div
-                className='max-w-6xl mx-auto -mt-16 px-6 mb-20'
+                className='max-w-6xl mx-auto px-6 md:px-16 lg:px-24 py-20'
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
