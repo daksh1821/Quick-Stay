@@ -64,7 +64,7 @@ const RoomDetails = () => {
                 key: data.keyId,
                 amount: data.amount,
                 currency: data.currency,
-                name: 'QuickStay',
+                name: 'Final Destination',
                 description: `Booking at ${data.hotelName}`,
                 order_id: data.orderId,
                 handler: async function (response) {

@@ -46,7 +46,7 @@ services:
     pullRequestPreviewsEnabled: true
     envVars:
       - key: VITE_CURRENCY
-        value: $
+        value: ₹
       - key: VITE_CLERK_PUBLISHABLE_KEY
         sync: false
     routes:
