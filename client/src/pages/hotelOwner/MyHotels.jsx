@@ -7,6 +7,7 @@ const MyHotels = () => {
     const { axios, getToken, setShowHotelReg } = useAppContext();
     const [hotels, setHotels] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [deleting, setDeleting] = useState(null);
 
     const fetchMyHotels = async () => {
         try {
@@ -23,6 +24,32 @@ const MyHotels = () => {
             toast.error(error.message);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleDeleteHotel = async (hotelId, hotelName) => {
+        // Confirm before deleting
+        if (!window.confirm(`Are you sure you want to delete "${hotelName}"? This will also delete all rooms associated with this hotel. This action cannot be undone.`)) {
+            return;
+        }
+
+        try {
+            setDeleting(hotelId);
+            const { data } = await axios.delete(`/api/hotels/${hotelId}`, {
+                headers: { Authorization: `Bearer ${await getToken()}` }
+            });
+
+            if (data.success) {
+                toast.success(data.message);
+                // Remove hotel from the list
+                setHotels(prevHotels => prevHotels.filter(hotel => hotel._id !== hotelId));
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            setDeleting(null);
         }
     };
 
@@ -100,8 +127,33 @@ const MyHotels = () => {
                                 </div>
                             </div>
 
-                            <div className='mt-4 pt-4 border-t border-gray-200 text-xs text-gray-500'>
-                                Registered on {new Date(hotel.createdAt).toLocaleDateString()}
+                            <div className='mt-4 pt-4 border-t border-gray-200 flex items-center justify-between'>
+                                <div className='text-xs text-gray-500'>
+                                    Registered on {new Date(hotel.createdAt).toLocaleDateString()}
+                                </div>
+                                <button
+                                    onClick={() => handleDeleteHotel(hotel._id, hotel.name)}
+                                    disabled={deleting === hotel._id}
+                                    className='flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-red-600 hover:text-white hover:bg-red-600 border border-red-600 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+                                    title='Delete Hotel'
+                                >
+                                    {deleting === hotel._id ? (
+                                        <>
+                                            <svg className='animate-spin h-3 w-3' fill='none' viewBox='0 0 24 24'>
+                                                <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4'></circle>
+                                                <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z'></path>
+                                            </svg>
+                                            <span>Deleting...</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <svg className='w-3.5 h-3.5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16' />
+                                            </svg>
+                                            <span>Delete</span>
+                                        </>
+                                    )}
+                                </button>
                             </div>
                         </div>
                     ))}
