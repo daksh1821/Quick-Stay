@@ -14,7 +14,7 @@ const AddRoom = () => {
 
     const [inputs, setInputs] = useState({
         roomType: '',
-        pricePerNight: 0,
+        pricePerNight: '',
         amenities: {
             'Free WiFi': false,
             'Free Breakfast': false,
@@ -23,6 +23,29 @@ const AddRoom = () => {
             'Pool Access': false
         }
     });
+
+    // Handle price change to ensure positive values only
+    const handlePriceChange = (e) => {
+        const value = parseFloat(e.target.value);
+
+        // Allow empty string for user to clear input
+        if (e.target.value === '') {
+            setInputs({ ...inputs, pricePerNight: '' });
+            return;
+        }
+
+        // Ensure value is positive
+        if (value > 0) {
+            setInputs({ ...inputs, pricePerNight: value });
+        } else {
+            setInputs({ ...inputs, pricePerNight: 1 });
+        }
+    };
+
+    // Handle image deletion
+    const handleDeleteImage = (key) => {
+        setImages({ ...images, [key]: null });
+    };
 
     const fetchMyHotels = async () => {
         try {
@@ -75,7 +98,7 @@ const AddRoom = () => {
                 toast.success(data.message);
                 setInputs({
                     roomType: '',
-                    pricePerNight: 0,
+                    pricePerNight: '',
                     amenities: {
                         'Free WiFi': false,
                         'Free Breakfast': false,
@@ -140,36 +163,53 @@ const AddRoom = () => {
                     </label>
                     <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
                         {Object.keys(images).map((key) => (
-                            <motion.label
-                                key={key}
-                                htmlFor={`roomImage${key}`}
-                                className='relative group cursor-pointer'
-                                whileHover={{ scale: 1.02 }}
-                            >
-                                <div className='aspect-square rounded-lg border-2 border-dashed border-gray-300 hover:border-blue-500 transition-colors overflow-hidden bg-gray-50'>
-                                    {images[key] ? (
-                                        <img
-                                            className='w-full h-full object-cover'
-                                            src={URL.createObjectURL(images[key])}
-                                            alt={`Room ${key}`}
-                                        />
-                                    ) : (
-                                        <div className='flex flex-col items-center justify-center h-full text-gray-400'>
-                                            <svg className='w-10 h-10 mb-2' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                                                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 4v16m8-8H4' />
-                                            </svg>
-                                            <span className='text-xs'>Upload Image</span>
-                                        </div>
-                                    )}
-                                </div>
-                                <input
-                                    type='file'
-                                    accept='image/*'
-                                    id={`roomImage${key}`}
-                                    hidden
-                                    onChange={e => setImages({ ...images, [key]: e.target.files[0] })}
-                                />
-                            </motion.label>
+                            <div key={key} className='relative'>
+                                <motion.label
+                                    htmlFor={images[key] ? '' : `roomImage${key}`}
+                                    className='relative group cursor-pointer block'
+                                    whileHover={{ scale: 1.02 }}
+                                >
+                                    <div className='aspect-square rounded-lg border-2 border-dashed border-gray-300 hover:border-blue-500 transition-colors overflow-hidden bg-gray-50'>
+                                        {images[key] ? (
+                                            <img
+                                                className='w-full h-full object-cover'
+                                                src={URL.createObjectURL(images[key])}
+                                                alt={`Room ${key}`}
+                                            />
+                                        ) : (
+                                            <div className='flex flex-col items-center justify-center h-full text-gray-400'>
+                                                <svg className='w-10 h-10 mb-2' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 4v16m8-8H4' />
+                                                </svg>
+                                                <span className='text-xs'>Upload Image</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <input
+                                        type='file'
+                                        accept='image/*'
+                                        id={`roomImage${key}`}
+                                        hidden
+                                        onChange={e => setImages({ ...images, [key]: e.target.files[0] })}
+                                    />
+                                </motion.label>
+
+                                {/* Delete Button - Only show when image exists */}
+                                {images[key] && (
+                                    <motion.button
+                                        type='button'
+                                        onClick={() => handleDeleteImage(key)}
+                                        className='absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1.5 shadow-lg transition-all z-10'
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                        title='Delete image'
+                                    >
+                                        <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
+                                        </svg>
+                                    </motion.button>
+                                )}
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -202,10 +242,12 @@ const AddRoom = () => {
                             <span className='absolute left-4 top-1/2 -translate-y-1/2 text-gray-500'>₹</span>
                             <input
                                 type='number'
-                                placeholder='0'
+                                placeholder='1000'
+                                min='1'
+                                step='1'
                                 className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all'
                                 value={inputs.pricePerNight}
-                                onChange={(e) => setInputs({ ...inputs, pricePerNight: e.target.value })}
+                                onChange={handlePriceChange}
                                 required
                             />
                         </div>
