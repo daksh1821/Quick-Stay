@@ -11,6 +11,69 @@ const Hero = () => {
     const [checkOut, setCheckOut] = useState("");
     const [guests, setGuests] = useState("");
 
+    // Get today's date in YYYY-MM-DD format for min date validation (using local timezone)
+    const getTodayDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    // Get tomorrow's date for default checkout minimum (using local timezone)
+    const getTomorrowDate = () => {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const year = tomorrow.getFullYear();
+        const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        const day = String(tomorrow.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    // Handle check-in date change
+    const handleCheckInChange = (e) => {
+        const selectedCheckIn = e.target.value;
+        const today = getTodayDate();
+
+        // Prevent selecting dates before today
+        if (selectedCheckIn < today) {
+            return; // Don't update if date is in the past
+        }
+
+        setCheckIn(selectedCheckIn);
+
+        // If checkout is before or same as new check-in, clear it
+        if (checkOut && checkOut <= selectedCheckIn) {
+            setCheckOut("");
+        }
+    };
+
+    // Handle check-out date change
+    const handleCheckOutChange = (e) => {
+        const selectedCheckOut = e.target.value;
+
+        // Only set if it's after check-in date
+        if (!checkIn || selectedCheckOut > checkIn) {
+            setCheckOut(selectedCheckOut);
+        }
+    };
+
+    // Handle guests change to ensure positive values
+    const handleGuestsChange = (e) => {
+        const value = parseInt(e.target.value);
+
+        // Ensure value is between 1 and 4
+        if (value >= 1 && value <= 4) {
+            setGuests(value);
+        } else if (value > 4) {
+            setGuests(4);
+        } else if (e.target.value === "") {
+            setGuests("");
+        } else {
+            setGuests(1);
+        }
+    };
+
     const onSearch = async (e) => {
         e.preventDefault();
 
@@ -126,7 +189,8 @@ const Hero = () => {
                         id="checkIn"
                         type="date"
                         value={checkIn}
-                        onChange={e => setCheckIn(e.target.value)}
+                        onChange={handleCheckInChange}
+                        min={getTodayDate()}
                         className="rounded-lg border-2 border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all w-full"
                         required
                     />
@@ -145,7 +209,15 @@ const Hero = () => {
                         id="checkOut"
                         type="date"
                         value={checkOut}
-                        onChange={e => setCheckOut(e.target.value)}
+                        onChange={handleCheckOutChange}
+                        min={checkIn ? (() => {
+                            const nextDay = new Date(checkIn);
+                            nextDay.setDate(nextDay.getDate() + 1);
+                            const year = nextDay.getFullYear();
+                            const month = String(nextDay.getMonth() + 1).padStart(2, '0');
+                            const day = String(nextDay.getDate()).padStart(2, '0');
+                            return `${year}-${month}-${day}`;
+                        })() : getTomorrowDate()}
                         className="rounded-lg border-2 border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all w-full"
                         required
                     />
@@ -167,9 +239,9 @@ const Hero = () => {
                         id="guests"
                         type="number"
                         value={guests}
-                        onChange={e => setGuests(e.target.value)}
+                        onChange={handleGuestsChange}
                         className="rounded-lg border-2 border-gray-300 px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all w-full md:max-w-24"
-                        placeholder="0"
+                        placeholder="1"
                         required
                     />
                 </motion.div>
