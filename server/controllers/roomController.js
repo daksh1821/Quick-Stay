@@ -8,6 +8,11 @@ export const createRoom = async (req, res) => {
   try {
     const { roomType, pricePerNight, amenities, hotelId } = req.body;
 
+    // Validate price
+    if (!pricePerNight || pricePerNight <= 0) {
+      return res.json({ success: false, message: "Price per night must be a positive number" });
+    }
+
     // Use provided hotelId or find the first hotel owned by user
     let hotel;
     if (hotelId) {

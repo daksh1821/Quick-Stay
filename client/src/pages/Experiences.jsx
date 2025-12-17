@@ -80,7 +80,7 @@ const Experiences = () => {
                         Guest Experiences
                     </h1>
                     <p className='text-lg md:text-xl text-blue-100 leading-relaxed max-w-3xl mx-auto'>
-                        Discover authentic stories from travelers who have experienced the luxury and comfort of Final Destination. Their journeys inspire our commitment to excellence.
+                        Discover authentic stories from travelers who have experienced the luxury and comfort of Hotel Management. Their journeys inspire our commitment to excellence.
                     </p>
                 </motion.div>
             </motion.div>
@@ -190,7 +190,7 @@ const Experiences = () => {
                         Ready to Create Your Own Story?
                     </h2>
                     <p className='text-lg md:text-xl text-blue-100 mb-8 leading-relaxed'>
-                        Join thousands of satisfied guests who have discovered luxury and comfort at Final Destination properties worldwide.
+                        Join thousands of satisfied guests who have discovered luxury and comfort at Hotel Management properties worldwide.
                     </p>
                     <motion.button
                         onClick={() => window.location.href = '/rooms'}

@@ -102,7 +102,7 @@ const FeedbackForm = () => {
                     <textarea
                         value={formData.review}
                         onChange={(e) => setFormData({ ...formData, review: e.target.value })}
-                        placeholder='Share your experience with Final Destination...'
+                        placeholder='Share your experience with Hotel Management...'
                         rows='5'
                         maxLength='500'
                         className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none'

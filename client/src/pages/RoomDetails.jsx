@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 const RoomDetails = () => {
     const { id } = useParams();
-    const { facilityIcons, rooms, getToken, axios, navigate } = useAppContext();
+    const { facilityIcons, rooms, getToken, axios, navigate, currency } = useAppContext();
 
     const [room, setRoom] = useState(null);
     const [mainImage, setMainImage] = useState(null);
@@ -64,7 +64,7 @@ const RoomDetails = () => {
                 key: data.keyId,
                 amount: data.amount,
                 currency: data.currency,
-                name: 'Final Destination',
+                name: 'Hotel Management',
                 description: `Booking at ${data.hotelName}`,
                 order_id: data.orderId,
                 handler: async function (response) {
@@ -178,7 +178,7 @@ const RoomDetails = () => {
                     </div>
                 </div>
                 {/* Room Price */}
-                <p className='text-2xl font-medium'>${room.pricePerNight}/night</p>
+                <p className='text-2xl font-medium'>{currency}{room.pricePerNight}/night</p>
             </div>
 
             {/* CheckIn CheckOut Form */}

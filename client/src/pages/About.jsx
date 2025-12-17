@@ -55,7 +55,7 @@ const About = () => {
                 </div>
                 <div className='relative z-10 text-center text-white px-4'>
                     <h1 className='text-4xl md:text-6xl font-playfair font-bold mb-6'>
-                        About Final Destination
+                        About Hotel Management
                     </h1>
                     <p className='text-lg md:text-xl max-w-2xl mx-auto'>
                         Your gateway to extraordinary stays and unforgettable experiences around the world
@@ -71,7 +71,7 @@ const About = () => {
                     </h2>
                     <div className='space-y-6 text-gray-700 leading-relaxed'>
                         <p className='text-lg'>
-                            Founded in 2025, Final Destination was born from a simple yet powerful vision:
+                            Founded in 2025, Hotel Management was born from a simple yet powerful vision:
                             to make luxury travel accessible and effortless for discerning travelers worldwide.
                             We recognized that finding the perfect accommodation should be an exciting part of
                             the journey, not a stressful task.
@@ -85,7 +85,7 @@ const About = () => {
                         <p className='text-lg'>
                             Our platform combines cutting-edge technology with personalized service, making
                             it easy to discover, compare, and book your ideal accommodation. Whether you're
-                            planning a romantic getaway, a family vacation, or a business trip, Final Destination
+                            planning a romantic getaway, a family vacation, or a business trip, Hotel Management
                             is here to make your stay extraordinary.
                         </p>
                     </div>
@@ -184,7 +184,7 @@ const About = () => {
             {/* Why Choose Us Section */}
             <div className='px-6 md:px-16 lg:px-24 xl:px-32 py-16 md:py-24'>
                 <h2 className='text-3xl md:text-4xl font-playfair font-bold text-center mb-12'>
-                    Why Choose Final Destination?
+                    Why Choose Hotel Management?
                 </h2>
                 <div className='grid md:grid-cols-2 gap-8 max-w-5xl mx-auto'>
                     <div className='flex gap-4'>
